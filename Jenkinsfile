@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     credentialsId: 'c804b9d7-5c10-4739-a82b-1697ca196f06',
                     url: 'https://github.com/ubexdigital/Deploy-NodeApp.git'
             }
