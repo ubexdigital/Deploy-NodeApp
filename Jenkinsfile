@@ -26,9 +26,13 @@ pipeline {
 
         stage('Push to Registry') {
             steps {
-                script {
-                    sh "docker login -u $DOCKER_USER -p $DOCKER_PASS"
-                    sh "docker push ${DOCKER_REGISTRY}/${APP_NAME}:latest"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred',
+                                         usernameVariable: 'DOCKER_USER',
+                                         passwordVariable: 'DOCKER_PASS')]) {
+            sh """
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push ${DOCKER_REGISTRY}/${APP_NAME}:latest
+            """
                 }
             }
         }
